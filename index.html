@@ -3,151 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Cookie Formatter</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Cookie Formatter Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
-        /* ফুল স্ক্রিন এবং আধুনিক ব্যাকগ্রাউন্ড সেটআপ */
-        body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
-            background: linear-gradient(135deg, #f0f2f5 0%, #dbe4f0 100%);
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 30px 15px;
-            min-height: 100vh;
-            box-sizing: border-box;
+            padding: 0;
         }
 
-        /* মেইন কন্টেইনার ডিজাইন - আরও চওড়া এবং আধুনিক */
-        .container {
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #eef2f6; /* হালকা নীলচে ব্যাকগ্রাউন্ড */
+            height: 100vh; /* পুরো স্ক্রিন */
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 15px;
+        }
+
+        /* --- ওপরের অংশ (Cookies Input) --- */
+        .top-section {
+            flex: 1; /* স্ক্রিনের অর্ধেক জায়গা নেবে */
             background: #ffffff;
-            padding: 35px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            width: 100%;
-            max-width: 650px; /* আগের চেয়ে চওড়া */
-            margin: 20px auto; /* মাঝখানে আনার জন্য */
-        }
-
-        h2 {
-            text-align: center;
-            color: #1a2b4b;
-            margin-bottom: 25px;
-            font-weight: 700;
-            font-size: 24px;
-        }
-
-        /* লেবেল ডিজাইন */
-        label {
-            font-weight: 600;
-            color: #4a5568;
-            display: block;
-            margin-top: 20px;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        /* ইনপুট এবং টেক্সটএরিয়া ডিজাইন - আরও প্রিমিয়াম লুক */
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-family: 'Inter', monospace;
-            font-size: 14px;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
-            background-color: #f8fafc;
-        }
-
-        /* ফোকাস করলে যা হবে */
-        input[type="text"]:focus, textarea:focus {
-            outline: none;
-            border-color: #1877f2;
-            background-color: #fff;
-            box-shadow: 0 0 0 4px rgba(24, 119, 242, 0.1);
-        }
-
-        input[type="text"] {
-            margin-bottom: 5px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: 0.3s;
         }
         
+        .top-section:focus-within {
+            border-color: #1877f2;
+        }
+
+        .header {
+            background: #f0f4f8;
+            padding: 10px 20px;
+            font-weight: 600;
+            color: #1a2b4b;
+            border-bottom: 1px solid #e1e4e8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         textarea {
-            height: 150px; /* উচ্চতা বাড়ানো হয়েছে */
-            resize: vertical;
-        }
-
-        /* বাটন ডিজাইন - আরও বড় এবং বোল্ড */
-        button {
+            flex: 1;
             width: 100%;
-            padding: 15px;
-            margin-top: 20px;
             border: none;
-            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Roboto Mono', monospace; /* কোডের মতো ফন্ট */
+            font-size: 13px;
+            resize: none; /* টেনে ছোট বড় করা যাবে না, ফিক্সড থাকবে */
+            outline: none;
+            color: #333;
+        }
+
+        /* --- মাঝখানের অংশ (Password Bar) --- */
+        .middle-bar {
+            background: #ffffff;
+            padding: 10px 20px;
+            border-radius: 50px; /* গোল বাটন স্টাইল */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            height: 70px; /* ফিক্সড হাইট */
+        }
+
+        .pass-label {
             font-weight: 700;
-            cursor: pointer;
-            color: white;
-            font-size: 16px;
-            letter-spacing: 0.5px;
-            transition: background-color 0.2s ease, transform 0.1s ease;
+            color: #1877f2;
+            white-space: nowrap;
         }
 
-        button:active {
-            transform: scale(0.98);
+        #globalPass {
+            flex: 1;
+            border: none;
+            background: #f0f4f8;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 15px;
+            outline: none;
+            color: #333;
+            text-align: center;
+            font-weight: 600;
         }
 
+        #globalPass:focus {
+            box-shadow: inset 0 0 0 2px #1877f2;
+        }
+
+        /* ফরম্যাট বাটন (Action Button) */
         #btnExtract {
-            background-color: #1877f2;
-            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.2);
+            background: #1877f2;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
         }
+
         #btnExtract:hover {
-            background-color: #166fe5;
+            background: #145dbf;
+            transform: scale(1.05);
+        }
+
+        /* --- নিচের অংশ (Output) --- */
+        .bottom-section {
+            flex: 1; /* বাকি অর্ধেক জায়গা নেবে */
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #outputBox {
+            background: #fafafa;
+            color: #2d3748;
+        }
+
+        /* কপি বাটন এবং স্ট্যাটাস */
+        .action-footer {
+            padding: 10px 20px;
+            background: #fff;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         #btnCopy {
-            background-color: #22c55e;
-            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
-            display: none;
+            background: #22c55e;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: none; /* জাভাস্ক্রিপ্ট দিয়ে অন হবে */
         }
-        #btnCopy:hover {
-            background-color: #16a34a;
+        
+        #status {
+            font-size: 13px;
+            font-weight: 600;
         }
 
-        /* স্ট্যাটাস এবং ফুটার */
-        .status {
-            text-align: center;
-            margin-top: 18px;
-            font-size: 14px;
-            font-weight: 600;
-            min-height: 20px;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 12px;
-            color: #a0aec0;
+        /* মোবাইল রেসপন্সিভ */
+        @media (max-width: 600px) {
+            .middle-bar {
+                flex-direction: column;
+                height: auto;
+                border-radius: 15px;
+                padding: 15px;
+            }
+            #globalPass, #btnExtract {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>Smart Cookie Formatter</h2>
+    <div class="top-section">
+        <div class="header">
+            <span>🍪 INPUT COOKIES</span>
+            <small style="color:#888">Paste Full Data</small>
+        </div>
+        <textarea id="inputBox" placeholder="Paste your raw cookies here... (datr=...; c_user=...;)"></textarea>
+    </div>
 
-        <label for="globalPass">Global Password (For all IDs)</label>
-        <input type="text" id="globalPass" placeholder="Enter password here (e.g. Aa@123456)">
+    <div class="middle-bar">
+        <span class="pass-label">PASS KEY</span>
+        <input type="text" id="globalPass" placeholder="Enter Password (e.g. Aa@123)">
+        <button id="btnExtract">FORMAT DATA ⬇</button>
+    </div>
 
-        <label for="inputBox">Paste Cookies Here</label>
-        <textarea id="inputBox" placeholder="Paste full cookies data here (datr=...; c_user=...;)"></textarea>
-
-        <button id="btnExtract">Format Data Now</button>
-
-        <label for="outputBox">Result (UID | Pass | Cookie)</label>
-        <textarea id="outputBox" readonly placeholder="Formatted result will appear here..."></textarea>
+    <div class="bottom-section">
+        <div class="header">
+            <span>✅ OUTPUT RESULT</span>
+            <small style="color:#888">UID | Pass | Cookie</small>
+        </div>
+        <textarea id="outputBox" readonly placeholder="Result will appear here..."></textarea>
         
-        <button id="btnCopy">Copy All Results</button>
-
-        <div id="status" class="status"></div>
-        
-        <div class="footer">Professional UID & Cookie Formatter Tool</div>
+        <div class="action-footer">
+            <div id="status">Waiting for input...</div>
+            <button id="btnCopy">COPY ALL</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
