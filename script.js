@@ -1,14 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
     const inputBox = document.getElementById('inputBox');
     const outputBox = document.getElementById('outputBox');
-    const globalPassInput = document.getElementById('globalPass'); // পাসওয়ার্ড বক্স
+    const globalPassInput = document.getElementById('globalPass');
+    
     const btnExtract = document.getElementById('btnExtract');
+    const btnClear = document.getElementById('btnClear'); // New Button
     const btnCopy = document.getElementById('btnCopy');
     const status = document.getElementById('status');
 
+    // --- 1. FORMAT DATA ---
     btnExtract.addEventListener('click', () => {
         const text = inputBox.value.trim();
-        const password = globalPassInput.value.trim(); // পাসওয়ার্ড নেওয়া হলো
+        const password = globalPassInput.value.trim();
 
         if (!text) {
             status.innerText = "Please paste cookies first!";
@@ -16,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        // পাসওয়ার্ড না দিলে ওয়ার্নিং দেওয়া যেতে পারে, তবে আমরা খালি রাখলে খালিই বসাব
         const passStr = password ? password : ""; 
 
         const lines = text.split('\n');
@@ -32,9 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (match && match[1]) {
                 const uid = match[1];
-                
-                // ফরম্যাট: UID | Password | Original Cookie
-                // পাসওয়ার্ড না দিলে মাঝখানের জায়গাটা ফাঁকা থাকবে কিন্তু ফরম্যাট ঠিক থাকবে
                 formattedLines.push(`${uid} | ${passStr} | ${cleanLine}`);
                 count++;
             }
@@ -53,6 +52,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- 2. CLEAR DATA (New) ---
+    btnClear.addEventListener('click', () => {
+        inputBox.value = "";
+        outputBox.value = "";
+        // পাসওয়ার্ড মুছবে না, যাতে বারবার লিখতে না হয়
+        // যদি পাসওয়ার্ডও মুছতে চান, নিচের লাইনটি আনকমেন্ট করুন:
+        // globalPassInput.value = ""; 
+        
+        status.innerText = "All Cleared! Ready.";
+        status.style.color = "#333";
+        btnCopy.style.display = "none";
+        inputBox.focus();
+    });
+
+    // --- 3. COPY DATA ---
     btnCopy.addEventListener('click', () => {
         outputBox.select();
         outputBox.setSelectionRange(0, 99999); 
