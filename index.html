@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie to UID Extractor</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 500px;
+        }
+        h2 {
+            text-align: center;
+            color: #1877f2;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            color: #444;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #1877f2;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        #btnExtract {
+            background-color: #1877f2;
+        }
+        #btnExtract:hover {
+            background-color: #166fe5;
+        }
+        #btnCopy {
+            background-color: #42b72a;
+            display: none; /* প্রথমে লুকানো থাকবে */
+        }
+        #btnCopy:hover {
+            background-color: #36a420;
+        }
+        .status {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 13px;
+            font-weight: bold;
+            min-height: 20px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 11px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Cookie to UID Tool</h2>
+
+        <label>Paste Cookies Here (Mixed text allowed):</label>
+        <textarea id="inputBox" placeholder="Paste your full cookies data here..."></textarea>
+
+        <button id="btnExtract">Extract UIDs</button>
+
+        <label>Result (UIDs Only):</label>
+        <textarea id="outputBox" readonly placeholder="Clean IDs will appear here..."></textarea>
+        
+        <button id="btnCopy">Copy All IDs</button>
+        <div id="status" class="status"></div>
+        
+        <div class="footer">Simple Tool for FB UID Extraction</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
