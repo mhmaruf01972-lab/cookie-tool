@@ -4,27 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cookie Formatter Pro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #eef2f6; /* হালকা নীলচে ব্যাকগ্রাউন্ড */
-            height: 100vh; /* পুরো স্ক্রিন */
+            background-color: #eef2f6;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             padding: 20px;
             gap: 15px;
         }
 
-        /* --- ওপরের অংশ (Cookies Input) --- */
+        /* --- Top Section --- */
         .top-section {
-            flex: 1; /* স্ক্রিনের অর্ধেক জায়গা নেবে */
+            flex: 1;
             background: #ffffff;
             border-radius: 15px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
@@ -34,10 +29,7 @@
             border: 2px solid transparent;
             transition: 0.3s;
         }
-        
-        .top-section:focus-within {
-            border-color: #1877f2;
-        }
+        .top-section:focus-within { border-color: #1877f2; }
 
         .header {
             background: #f0f4f8;
@@ -55,30 +47,26 @@
             width: 100%;
             border: none;
             padding: 15px;
-            font-family: 'Roboto Mono', monospace; /* কোডের মতো ফন্ট */
+            font-family: 'Roboto Mono', monospace;
             font-size: 13px;
-            resize: none; /* টেনে ছোট বড় করা যাবে না, ফিক্সড থাকবে */
+            resize: none;
             outline: none;
             color: #333;
         }
 
-        /* --- মাঝখানের অংশ (Password Bar) --- */
+        /* --- Middle Bar --- */
         .middle-bar {
             background: #ffffff;
             padding: 10px 20px;
-            border-radius: 50px; /* গোল বাটন স্টাইল */
+            border-radius: 50px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             display: flex;
             align-items: center;
-            gap: 15px;
-            height: 70px; /* ফিক্সড হাইট */
+            gap: 10px;
+            height: 70px;
         }
 
-        .pass-label {
-            font-weight: 700;
-            color: #1877f2;
-            white-space: nowrap;
-        }
+        .pass-label { font-weight: 700; color: #1877f2; white-space: nowrap; }
 
         #globalPass {
             flex: 1;
@@ -92,32 +80,38 @@
             text-align: center;
             font-weight: 600;
         }
+        #globalPass:focus { box-shadow: inset 0 0 0 2px #1877f2; }
 
-        #globalPass:focus {
-            box-shadow: inset 0 0 0 2px #1877f2;
-        }
-
-        /* ফরম্যাট বাটন (Action Button) */
-        #btnExtract {
-            background: #1877f2;
-            color: white;
+        /* Buttons */
+        button {
             border: none;
-            padding: 12px 30px;
+            padding: 12px 25px;
             border-radius: 30px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
             white-space: nowrap;
+            font-size: 14px;
         }
 
-        #btnExtract:hover {
-            background: #145dbf;
-            transform: scale(1.05);
+        #btnExtract {
+            background: #1877f2;
+            color: white;
+            flex: 0 0 auto;
         }
+        #btnExtract:hover { background: #145dbf; transform: scale(1.05); }
 
-        /* --- নিচের অংশ (Output) --- */
+        /* Clear Button Style */
+        #btnClear {
+            background: #ef4444; /* Red color */
+            color: white;
+            flex: 0 0 auto;
+        }
+        #btnClear:hover { background: #dc2626; transform: scale(1.05); }
+
+        /* --- Bottom Section --- */
         .bottom-section {
-            flex: 1; /* বাকি অর্ধেক জায়গা নেবে */
+            flex: 1;
             background: #ffffff;
             border-radius: 15px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
@@ -126,13 +120,8 @@
             overflow: hidden;
             position: relative;
         }
+        #outputBox { background: #fafafa; color: #2d3748; }
 
-        #outputBox {
-            background: #fafafa;
-            color: #2d3748;
-        }
-
-        /* কপি বাটন এবং স্ট্যাটাস */
         .action-footer {
             padding: 10px 20px;
             background: #fff;
@@ -145,30 +134,14 @@
         #btnCopy {
             background: #22c55e;
             color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            display: none; /* জাভাস্ক্রিপ্ট দিয়ে অন হবে */
+            display: none;
         }
-        
-        #status {
-            font-size: 13px;
-            font-weight: 600;
-        }
+        #status { font-size: 13px; font-weight: 600; color: #666; }
 
-        /* মোবাইল রেসপন্সিভ */
-        @media (max-width: 600px) {
-            .middle-bar {
-                flex-direction: column;
-                height: auto;
-                border-radius: 15px;
-                padding: 15px;
-            }
-            #globalPass, #btnExtract {
-                width: 100%;
-            }
+        @media (max-width: 650px) {
+            .middle-bar { flex-direction: column; height: auto; border-radius: 15px; padding: 15px; gap: 10px; }
+            #globalPass, #btnExtract, #btnClear { width: 100%; }
+            .middle-bar { gap: 10px; }
         }
     </style>
 </head>
@@ -176,27 +149,27 @@
 
     <div class="top-section">
         <div class="header">
-            <span>🍪 INPUT COOKIES</span>
-            <small style="color:#888">Paste Full Data</small>
+            <span>🍪 INPUT RAW COOKIES</span>
         </div>
-        <textarea id="inputBox" placeholder="Paste your raw cookies here... (datr=...; c_user=...;)"></textarea>
+        <textarea id="inputBox" placeholder="Paste full cookies here..."></textarea>
     </div>
 
     <div class="middle-bar">
         <span class="pass-label">PASS KEY</span>
-        <input type="text" id="globalPass" placeholder="Enter Password (e.g. Aa@123)">
+        <input type="text" id="globalPass" placeholder="Enter Password">
+        
         <button id="btnExtract">FORMAT DATA ⬇</button>
+        <button id="btnClear">CLEAR ✖</button>
     </div>
 
     <div class="bottom-section">
         <div class="header">
             <span>✅ OUTPUT RESULT</span>
-            <small style="color:#888">UID | Pass | Cookie</small>
         </div>
-        <textarea id="outputBox" readonly placeholder="Result will appear here..."></textarea>
+        <textarea id="outputBox" readonly placeholder="Formatted result will appear here..."></textarea>
         
         <div class="action-footer">
-            <div id="status">Waiting for input...</div>
+            <div id="status">Waiting for data...</div>
             <button id="btnCopy">COPY ALL</button>
         </div>
     </div>
